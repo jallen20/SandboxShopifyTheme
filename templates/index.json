@@ -12,9 +12,23 @@
     "main": {
       "type": "hello-world",
       "settings": {}
+    },
+    "map_pGeJNq": {
+      "type": "map",
+      "name": "Google Map",
+      "settings": {
+        "map_title": "Our Location",
+        "latitude": "38.7946",
+        "longitude": "-106.5348",
+        "zoom": 4,
+        "map_id": "7603b2c085169eb1878d4f3d",
+        "api_key": "AIzaSyC3mjcC950OCgE0xim17elbQs3IEX88qlc",
+        "map_height": "400px"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "map_pGeJNq"
   ]
 }
