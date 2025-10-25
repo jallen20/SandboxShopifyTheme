@@ -66,7 +66,15 @@
             center="{{ section.settings.latitude }},{{ section.settings.longitude }}"
             zoom="{{ section.settings.zoom }}"
             map-id="{{ section.settings.map_id }}"
-            disable-default-ui
+            map-options='{
+    "disableDefaultUI": true,
+    "zoomControl": false,
+    "mapTypeControl": false,
+    "streetViewControl": false,
+    "fullscreenControl": false,
+    "rotateControl": false,
+    "scaleControl": false
+  }'
             style="height: {{ section.settings.map_height }}; width: 100%;"
     >
     </gmp-map>
