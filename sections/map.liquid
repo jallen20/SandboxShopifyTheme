@@ -1,0 +1,95 @@
+{% schema %}
+{
+  "name": "Google Map Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "map_title",
+      "label": "Section Title",
+      "default": "Our Location"
+    },
+    {
+      "type": "text",
+      "id": "latitude",
+      "label": "Latitude",
+      "default": "38.7946"
+    },
+    {
+      "type": "text",
+      "id": "longitude",
+      "label": "Longitude",
+      "default": "-106.5348"
+    },
+    {
+      "type": "range",
+      "id": "zoom",
+      "label": "Zoom Level",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "map_id",
+      "label": "Google Map ID",
+      "default": "DEMO_MAP_ID"
+    },
+    {
+      "type": "text",
+      "id": "api_key",
+      "label": "Google Maps API Key",
+      "default": "YOUR_API_KEY"
+    },
+    {
+      "type": "text",
+      "id": "map_height",
+      "label": "Map Height (px or %)",
+      "default": "400px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Google Map",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="google-map-section">
+    {% if section.settings.map_title != blank %}
+        <h2 class="map-title">{{ section.settings.map_title }}</h2>
+    {% endif %}
+
+    <gmp-map
+            center="{{ section.settings.latitude }},{{ section.settings.longitude }}"
+            zoom="{{ section.settings.zoom }}"
+            map-id="{{ section.settings.map_id }}"
+            style="height: {{ section.settings.map_height }}; width: 100%;"
+    >
+    </gmp-map>
+
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key={{ section.settings.api_key }}&libraries=maps"
+            defer
+    ></script>
+
+    <style>
+        .google-map-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .google-map-section .map-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        gmp-map {
+            border-radius: 8px;
+            overflow: hidden;
+            display: block;
+        }
+    </style>
+</section>
