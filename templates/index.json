@@ -18,9 +18,9 @@
       "name": "Google Map",
       "settings": {
         "map_title": "Our Location",
-        "latitude": "38.7946",
-        "longitude": "-106.5348",
-        "zoom": 4,
+        "latitude": " 33.792",
+        "longitude": " -84.336",
+        "zoom": 11,
         "map_id": "25d5fca98eafd1408dfafc65",
         "api_key": "AIzaSyC3mjcC950OCgE0xim17elbQs3IEX88qlc",
         "map_height": "400px"
