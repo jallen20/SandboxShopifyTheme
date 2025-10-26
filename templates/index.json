@@ -9,15 +9,11 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
-    },
     "map_pGeJNq": {
       "type": "map",
       "name": "Google Map",
       "settings": {
-        "map_title": "Our Location",
+        "map_title": "",
         "latitude": " 33.792",
         "longitude": " -84.336",
         "zoom": 11,
@@ -28,7 +24,6 @@
     }
   },
   "order": [
-    "main",
     "map_pGeJNq"
   ]
 }
