@@ -1,0 +1,75 @@
+
+<div id="{{ id }}">
+    P: {{ product }}
+    ID: {{ id }}
+    TITLE: {{ title }}
+    LAT: {{ lat }}
+    LNG: {{ lng }}
+
+    <script type="module" defer>
+        import { waitForMap } from '{{ "init-gmap.js" | asset_url }}'
+
+        function ChipOverlay(position, map) {
+            this.id = "{{ id }}_chip";
+            this.position = position;
+            this.map = map;
+            this.div = null;
+            this.setMap(map);
+        }
+
+        // Inherit from OverlayView
+        ChipOverlay.prototype = new google.maps.OverlayView();
+
+
+        // Implement the onAdd method
+        ChipOverlay.prototype.onAdd = function() {
+            // Create the DOM element if it doesn't exist
+            var div = document.createElement('div');
+            div.style.borderStyle = 'none';
+            div.style.borderWidth = '0px';
+            div.style.position = 'absolute';
+            div.style.backgroundColor = 'white';
+            div.style.padding = '5px';
+            div.textContent = 'Custom Overlay';
+
+            this.div = div;
+
+            // Add the element to the appropriate map pane
+            var panes = this.getPanes();
+            console.log("PANES", panes);
+            panes.overlayLayer.appendChild(div); // Choose the pane that suits your needs
+        };
+
+        // Implement the draw method
+        ChipOverlay.prototype.draw = function() {
+            // Position the element based on the map's projection
+            var overlayProjection = this.getProjection();
+            console.log("position", this.position)
+            const { lat, lng } = this.position;
+            var position = overlayProjection.fromLatLngToDivPixel({ lat: +lat, lng: +lng });
+
+            var div = this.div;
+            div.style.left = position.x + 'px';
+            div.style.top = position.y + 'px';
+        };
+
+        // Implement the onRemove method
+        ChipOverlay.prototype.onRemove = function() {
+            // Remove the element from the DOM
+            if (this.div) {
+                this.div.parentNode.removeChild(this.div);
+                window.__chips__ = window.__chips__.filter(chip => chip.id !== "{{ id }}_chip");
+                this.div = null;
+            }
+        };
+
+        waitForMap((m, c) => {
+            const lat = "{{ lat }}";
+            const lng = "{{ lng }}";
+            const overlay = new ChipOverlay({ lat, lng}, m)
+            c.push(overlay);
+            console.log("OV", overlay);
+            console.log("C", c);
+        })
+    </script>
+</div>

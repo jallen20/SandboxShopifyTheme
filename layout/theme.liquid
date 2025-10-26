@@ -11,6 +11,9 @@
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
+
+      <script type="module" src="{{ "init-gmap.js" | asset_url }}" defer>
+      </script>
   </head>
 
   <body>
