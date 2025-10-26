@@ -21,9 +21,23 @@
         "api_key": "AIzaSyC3mjcC950OCgE0xim17elbQs3IEX88qlc",
         "map_height": "400px"
       }
+    },
+    "landing_hxQbCM": {
+      "type": "landing",
+      "name": "Landing",
+      "settings": {
+        "title": "Title",
+        "latitude": "33.792",
+        "longitude": "-84.336",
+        "zoom": 11,
+        "map_id": "25d5fca98eafd1408dfafc65",
+        "api_key": "AIzaSyC3mjcC950OCgE0xim17elbQs3IEX88qlc",
+        "map_height": "400px"
+      }
     }
   },
   "order": [
-    "map_pGeJNq"
+    "map_pGeJNq",
+    "landing_hxQbCM"
   ]
 }
