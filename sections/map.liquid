@@ -75,8 +75,22 @@
             src="https://maps.googleapis.com/maps/api/js?key={{ section.settings.api_key }}&v=weekly&libraries=maps,marker"
     ></script>
 
-    <script type="module" src="{{ 'init-map.js' | asset_url }}" defer>
+    <script type="module" defer>
+        import { waitForMap } from '{{ "init-gmap.js" | asset_url }}'
 
+        waitForMap((m,) => {
+            m.setOptions({
+                disableDefaultUI: true,
+                zoomControl: false,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false,
+                rotateControl: false,
+                scaleControl: false,
+                tilt: 0,
+                heading: 0
+            });
+        });
     </script>
 
     {% paginate collections['all'].products by 50 %}
@@ -93,9 +107,6 @@
             {% endif %}
         {% endfor %}
     {% endpaginate %}
-
-
-
 
     <style>
         .google-map-section {

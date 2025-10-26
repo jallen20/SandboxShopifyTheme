@@ -1,0 +1,65 @@
+<div>
+    <gmp-map
+            id="map"
+            heading-interaction-disabled
+            center="{{ latitude }},{{ longitude }}"
+            zoom="{{ zoom }}"
+            map-id="{{ map_id }}"
+            style="height: {{ map_height }}; width: 100%;"
+    ></gmp-map>
+
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&v=weekly&libraries=maps,marker"
+    ></script>
+
+    <script type="module" defer>
+        import { waitForMap } from '{{ "init-gmap.js" | asset_url }}'
+
+        waitForMap((m,) => {
+            m.setOptions({
+                disableDefaultUI: true,
+                zoomControl: false,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false,
+                rotateControl: false,
+                scaleControl: false,
+                tilt: 0,
+                heading: 0
+            });
+        });
+    </script>
+
+    {% paginate collections['all'].products by 50 %}
+        {% for product in collections['all'].products %}
+            {% assign coord = product.metafields.custom.location.value %}
+            {% if coord and coord.lat and coord.lng %}
+                {% render 'map-chip',
+                        product: product,
+                        id: product.id,
+                        title: product.title,
+                        lat: coord.lat.value,
+                        lng: coord.lng.value
+                %}
+            {% endif %}
+        {% endfor %}
+    {% endpaginate %}
+
+    <style>
+        .google-map-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .google-map-section .map-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        gmp-map {
+            border-radius: 8px;
+            overflow: hidden;
+            display: block;
+        }
+    </style>
+</div>

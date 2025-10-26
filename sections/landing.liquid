@@ -1,0 +1,90 @@
+{% schema %}
+{
+  "name": "Landing Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Title"
+    },
+    {
+      "type": "text",
+      "id": "latitude",
+      "label": "Latitude",
+      "default": "33.792"
+    },
+    {
+      "type": "text",
+      "id": "longitude",
+      "label": "Longitude",
+      "default": "-84.336"
+    },
+    {
+      "type": "range",
+      "id": "zoom",
+      "label": "Zoom Level",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 11
+    },
+    {
+      "type": "text",
+      "id": "map_id",
+      "label": "Google Map ID",
+      "default": "DEMO_MAP_ID"
+    },
+    {
+      "type": "text",
+      "id": "api_key",
+      "label": "Google Maps API Key",
+      "default": "YOUR_API_KEY"
+    },
+    {
+      "type": "text",
+      "id": "map_height",
+      "label": "Map Height (px or %)",
+      "default": "400px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="landing-section">
+    {% if section.settings.title != blank %}
+        <h2 class="map-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% render 'map',
+            lattitude: section.settings.latitude,
+            longitude: section.settings.longitude,
+            zoom: section.settings.zoom,
+            map_id: section.settings.map_id,
+            map_height: section.settings.map_height,
+            api_key: section.settings.api_key
+    %}
+    <style>
+        .landing-section {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .landing-section .map-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        gmp-map {
+            border-radius: 8px;
+            overflow: hidden;
+            display: block;
+        }
+    </style>
+</section>
