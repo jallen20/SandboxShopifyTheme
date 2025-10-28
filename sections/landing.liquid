@@ -58,33 +58,66 @@
 {% endschema %}
 
 <section class="landing-section">
-    {% if section.settings.title != blank %}
-        <h2 class="map-title">{{ section.settings.title }}</h2>
-    {% endif %}
-
+    <div class="landing-section-video-container">
+        <img class="video-logo" src="{{ 'Cheat-Code-2.svg' | asset_url }}">
+        <div class="landing-section-video-overlay">
+        </div>
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="{{ 'vid.mp4' | asset_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
     {% render 'map',
             latitude: section.settings.latitude,
             longitude: section.settings.longitude,
             zoom: section.settings.zoom,
             map_id: section.settings.map_id,
             map_height: section.settings.map_height,
-            api_key: section.settings.api_key
+            api_key: section.settings.api_key,
+            class-name: 'landing-section-item'
     %}
+    {% render 'pause-nav' %}
+
+
+    <script type="module" src="{{ 'p-nav.js' | asset_url }}" defer></script>
+
+    <style>
+        .landing-section-video-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-logo {
+            position: absolute;
+            z-index: 100;
+            align-self: center;
+            margin: auto;
+         }
+
+        .landing-section-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: #000;
+            opacity: 50%;
+        }
+        .landing-section-item {
+            visibility: hidden;
+        }
+        .p-nav-selected::after {
+            border-color: #007bff;
+            content: " ";
+        }
+    </style>
     <style>
         .landing-section {
             text-align: center;
             padding: 20px 0;
-        }
-
-        .landing-section .map-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        gmp-map {
-            border-radius: 8px;
-            overflow: hidden;
-            display: block;
+            grid-column-start: 1;
+            grid-column-end: 4;
         }
     </style>
 </section>
