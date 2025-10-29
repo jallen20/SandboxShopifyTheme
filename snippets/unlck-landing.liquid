@@ -1,0 +1,35 @@
+<div id="unlck-container">
+    <div class="unlck">
+        <img src="{{ 'Unlock-Only.png' | asset_url }}">
+        <h2 class="unlck-t">Press to UNLOCK</h2>
+    </div>
+
+    <script src="{{ 'unlock.js' | asset_url }}"></script>
+
+    <style>
+        #unlck-container {
+            background: #fff;
+            z-index: 9999;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            text-align: center;
+            padding: 16px;
+        }
+        .unlck {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .unlck img {
+            width: 36rem;
+        }
+        .unlck-t {
+            font-family: 'pricedown';
+        }
+    </style>
+</div>
