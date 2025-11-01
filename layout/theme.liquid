@@ -17,10 +17,14 @@
   </head>
 
   <body>
-    {% sections 'header-group' %}
+  <div class="conditional-show">
+      {% sections 'header-group' %}
+  </div>
 
     {{ content_for_layout }}
 
-    {% sections 'footer-group' %}
+    <div class="conditional-show">
+        {% sections 'footer-group' %}
+    </div>
   </body>
 </html>
