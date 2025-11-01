@@ -109,6 +109,7 @@
             flex-direction: column;
             height: 100%;
             width: 100%;
+            overflow: hidden;
         }
 
         video {
@@ -129,6 +130,7 @@
             right: 0;
             background: rgba(0, 0, 0, 0.7);
             transition: all 150ms ease;
+            transform: scale(1.5);
         }
         .hidden {
             display: none;
@@ -154,6 +156,10 @@
             padding: 0 0 2rem 0;
         }
 
+        .shopify-section {
+            display: flex;
+        }
+
         @media screen and (min-width: 800px) {
             video {
                 transform: scale(1);
@@ -162,7 +168,6 @@
                 width: 4rem;
             }
             .landing-section-content {
-                padding: 0 0 .5rem 0;
             }
         }
     </style>
