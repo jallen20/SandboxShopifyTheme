@@ -1,5 +1,5 @@
 
-<div id="{{ id }}">
+<div id="{{ id }}" class="chip">
     P: {{ product }}
     ID: {{ id }}
     TITLE: {{ title }}
@@ -23,21 +23,40 @@
 
         // Implement the onAdd method
         ChipOverlay.prototype.onAdd = function() {
-            // Create the DOM element if it doesn't exist
-            var div = document.createElement('div');
-            div.style.borderStyle = 'none';
-            div.style.borderWidth = '0px';
-            div.style.position = 'absolute';
-            div.style.backgroundColor = 'white';
-            div.style.padding = '5px';
-            div.textContent = 'Custom Overlay';
+            this.div = document.createElement("div");
+            this.div.classList.add("chip-overlay");
+            this.div.style.borderStyle = 'none';
+            this.div.style.borderWidth = '0px';
+            this.div.style.position = 'absolute';
+            this.div.style.backgroundColor = 'transparent';
+            this.div.style.padding = '5px';
 
-            this.div = div;
+            const svgHtml = `{% render 'clothing_pin' %}`;
+            const wrapper = document.createElement("div");
+            wrapper.classList.add("svg-chip");
+            wrapper.innerHTML = svgHtml;
+            const svgEl = wrapper.firstElementChild;
+            svgEl.style.fill = 'white';
+            svgEl.style.width = "24px";
+            svgEl.style.filter = "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5))";
+            this.div.appendChild(svgEl);
 
-            // Add the element to the appropriate map pane
-            var panes = this.getPanes();
-            console.log("PANES", panes);
-            panes.overlayLayer.appendChild(div); // Choose the pane that suits your needs
+            // Attach your event listener here
+            this.div.addEventListener("click", (e) => {
+                e.stopPropagation(); // prevent map from receiving the click
+                console.log("Map chip clicked:", this.position);
+
+                // Fire a custom event
+                const event = new CustomEvent("mapChipClicked", {
+                    detail: { position: this.position, element: this.div, url: '{{ product-url }}' }
+                });
+                window.dispatchEvent(event);
+            });
+
+            google.maps.OverlayView.preventMapHitsAndGesturesFrom(this.div);
+
+            const panes = this.getPanes();
+            panes.overlayMouseTarget.appendChild(this.div);
         };
 
         // Implement the draw method
@@ -72,4 +91,10 @@
             console.log("C", c);
         })
     </script>
+
+    <style>
+        .svg-chip svg {
+            width: 58px;
+        }
+    </style>
 </div>
