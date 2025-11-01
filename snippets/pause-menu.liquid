@@ -1,0 +1,136 @@
+<div id="{{ id }}" class="pause-menu">
+    <div class="pause-menu-nav-container">
+        <div id="pause-menu-nav">
+            {% assign options = nav-options | split: "," %}
+            {%  for option in options %}
+                <div id="nav_{{ option }}" class="p-nav-item">{{ option }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="pause-menu-content-container">
+    </div>
+
+    <script type="module">
+        import { initNav } from "{{ 'p-nav.js' | asset_url }}";
+
+        window.addEventListener("mapChipClicked", (e) => {
+            const { url } = e.detail;
+            window.location.href = url;
+        });
+        window.addEventListener('load', () => {
+            initNav();
+        });
+
+        const onNavigate = (selectedNav) => {
+            if (!selectedNav) return;
+            console.log("selectedNav", selectedNav);
+            const pauseMenuContainer = document.getElementById("pause-menu-content-container");
+            const video = document.getElementById("{{ video-id }}")
+            const videoOverlay = document.getElementById("{{ video-overlay-id }}");
+            if (selectedNav.innerText.toLowerCase() === 'home') {
+                pauseMenuContainer.style.display = 'none';
+                videoOverlay.style.boxShadow = 'none';
+                videoOverlay.style.filter = 'none';
+                videoOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
+                video.play();
+                return;
+            }
+            else if (selectedNav.innerText.toLowerCase() === 'shop') {
+                window.location.href = "/products";
+                return;
+            }
+            videoOverlay.style.boxShadow = 'inset 0 0 200px rgba(0, 0, 0, 1)';
+            videoOverlay.style.background = 'rgba(0, 0, 0, 0.1)';
+            videoOverlay.style.filter = 'sepia(1) contrast(1.1) brightness(0.9)';
+            pauseMenuContainer.style.display = 'flex';
+            video.pause();
+            const selectedElement = document.getElementById(selectedNav.innerText.toLowerCase().replace(/nav_/g, ''));
+            console.log("selectedElement", selectedElement);
+            pauseMenuContainer.appendChild(selectedElement);
+        }
+        const nav = document.getElementById("pause-menu-nav");
+        nav.addEventListener("click", e => {
+            initNav(e, onNavigate)
+        });
+    </script>
+
+    <style>
+        .pause-menu {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            align-items: center;
+            padding: 4px;
+        }
+        .pause-menu-nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: baseline;
+            width: 100%;
+            padding: 0 1rem;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .pause-menu-nav-container svg {
+            width: 4rem;
+        }
+        #pause-menu-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: 100%;
+            height: 4rem;
+        }
+        @media screen and (min-width: 800px) {
+            #pause-menu-nav {
+                justify-content: center;
+            }
+        }
+        #pause-menu-content-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: none;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin-top: 1rem;
+        }
+        #pause-menu-content {
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            position: relative;
+            text-align: center;
+            display: flex;
+        }
+        .p-nav-item {
+            background: #000;
+            width: 108px;
+            color: white;
+            height: 2rem;
+            padding: .5rem;
+            text-transform: uppercase;
+            transition: all 150ms ease-in-out;
+        }
+        .nav-logo {
+            width: 6rem;
+        }
+        .active {
+            background: white;
+            color: black;
+            position: relative;
+        }
+        .active::before {
+            content: "";
+            border: #007bff 2px solid;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            margin: 0;
+            transform: translateY(-4px);
+        }
+    </style>
+</div>

@@ -1,14 +1,15 @@
 <div>
-    <gmp-map
-            id="map"
-            class="{{ class-name }}"
-            heading-interaction-disabled
-            center="{{ latitude }},{{ longitude }}"
-            zoom="{{ zoom }}"
-            map-id="{{ map_id }}"
-            style="height: {{ map_height }}; width: 100%;"
-    ></gmp-map>
-
+    <div id="{{ id }}" class="map-clip-path-container">
+        <gmp-map
+                class="{{ class-name }}"
+                heading-interaction-disabled
+                center="{{ latitude }},{{ longitude }}"
+                zoom="{{ zoom }}"
+                map-id="{{ map_id }}"
+                style="width: 100%;"
+                color-scheme="dark"
+        ></gmp-map>
+    </div>
     <script
             src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&v=weekly&libraries=maps,marker"
     ></script>
@@ -40,7 +41,8 @@
                         id: product.id,
                         title: product.title,
                         lat: coord.lat.value,
-                        lng: coord.lng.value
+                        lng: coord.lng.value,
+                        product-url: product.url
                 %}
             {% endif %}
         {% endfor %}
@@ -56,11 +58,22 @@
             font-size: 1.5rem;
             margin-bottom: 10px;
         }
-
+        .map-clip-path-container {
+            width: 100%;
+            height: 20rem;
+            overflow: hidden;
+            margin: auto;
+            padding: 1rem;
+        }
         gmp-map {
-            border-radius: 8px;
             overflow: hidden;
             display: block;
+            height: 100rem;
+        }
+        @media screen and (min-width: 800px) {
+            .map-clip-path-container {
+                height: 20rem;
+            }
         }
     </style>
 </div>
