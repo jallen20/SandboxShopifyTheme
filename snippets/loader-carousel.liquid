@@ -1,0 +1,28 @@
+<div id="{{ id }}" class="carousel-img-container">
+    <div id="carousel-img-wrapper">
+    </div>
+
+    <script type="module">
+         const imgs = '{{ img-urls }}'.split(',');
+         const timer = +'{{ timer }}';
+
+         const imgWrapper = document.getElementById('carousel-img-wrapper');
+         const mainWrapper = document.getElementById('{{ id }}');
+         const imgContainer = document.createElement('img');
+         imgContainer.id = 'carousel-img';
+         const imgUrls = imgs.map((img) => {
+             const baseImgUrl = '{{ 'cc_1.png' | asset_url }}';
+             return baseImgUrl.replace(/cc_\d+.png/, `${img}.png`);
+         });
+         imgWrapper.appendChild(imgContainer);
+         imgContainer.classList.add('slide-in-out');
+         let current = 0;
+         window.GLOBAL_INTERVALS.push(setInterval(() => {
+             current = current === imgUrls.length ? 0 : current;
+             imgContainer.src = imgUrls[current];
+             current++;
+         }, timer * 1000));
+         mainWrapper.style.display = 'flex';
+         mainWrapper.style.justifyContent = "center";
+    </script>
+</div>

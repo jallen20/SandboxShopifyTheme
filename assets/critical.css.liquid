@@ -125,3 +125,297 @@ body {
 .shopify-section > .full-width {
   grid-column: 1 / -1;
 }
+
+#loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 5000;
+    transition: display 1s ease-in-out;
+    display: flex;
+    justify-content: center;
+}
+
+.loader-content {
+    position: relative;
+    background: transparent;
+    display: flex;
+    font-family: pricedown, sans-serif;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-1 {
+    animation: pulsate 5s linear 0s infinite;
+    position: relative;
+    margin: 4rem;
+    width: 12rem;
+}
+
+.loader-2 {
+ animation: slide-in 1s linear 1s infinite;
+}
+.unlck-l {
+    animation: slide-left .5s ease-in .75s;
+    animation-fill-mode: forwards;
+}
+.unlck-r {
+    animation: slide-right 100ms ease-in .875s;
+    animation-fill-mode: forwards;
+}
+.loader-l, .loader-r {
+    position: absolute;
+    width: 50%;
+    height: 100vh;
+    background: white;
+}
+.loader-r {
+    left: 0;
+}
+.loader-l {
+    right: 0;
+}
+.slide-right {
+    animation: s-slide-right 1s ease-in .5s infinite;
+    animation-fill-mode: forwards;
+}
+.slide-left {
+    animation: slide-left .5s ease-in .5s;
+    animation-fill-mode: forwards;
+}
+#loader-carousel {
+    display: none;
+    animation: display-in 10ms ease-in .5s;
+    animation-fill-mode: forwards;
+}
+.carousel-out {
+    animation: slide-down .5s ease-in;
+    animation-fill-mode: forwards;
+}
+.carousel-next {
+    animation: slide-in .5s ease-in;
+    animation-fill-mode: forwards;
+}
+.carousel-img-container {
+    transition: all 1s ease-in;
+    position: relative;
+}
+#carousel-img-wrapper {
+    position: absolute;
+    width: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    overflow: hidden;
+    align-self: center;
+    height: 6rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    transform: translateX(-2rem);
+}
+
+.shrink-out {
+    animation: fade-out .25s linear;
+    animation-fill-mode: forwards;
+}
+.grow-out {
+    animation:
+            grow 2.5s linear,
+            fade-out 500ms linear;
+    animation-fill-mode: forwards;
+}
+.fade-in {
+    animation: fade-in .5s cubic-bezier(.2,.8,.2,1);
+    animation-fill-mode: forwards;
+}
+.slide-in-out {
+    animation: slide-in-out 1s  cubic-bezier(.2,.8,.2,1) infinite;
+}
+.slide-out-r {
+    animation: a-slide-out-r 20s  cubic-bezier(.2,.8,.2,1);
+    animation-fill-mode: forwards;
+}
+.slide-out-l {
+    animation: a-slide-out-l 20s  cubic-bezier(.2,.8,.2,1);
+    animation-fill-mode: forwards;
+}
+
+
+
+/* keyframes */
+@keyframes move-up {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10rem);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes display-in {
+    from {
+        display: none;
+    }
+    to {
+        display: block;
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.25);
+    }
+    50% {
+        transform: scale(1.375);
+    }
+    75% {
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shrink {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
+    }
+}
+
+@keyframes grow {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(50);
+    }
+}
+
+@keyframes skew {
+    from {
+        transform: skew(0);
+    }
+    to {
+        transform: skew(-45deg, 0deg)
+    }
+}
+
+@keyframes skew-more {
+    to {
+        transform: skew(-90deg, 0deg)
+    }
+}
+
+@keyframes slide-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-3rem);
+    }
+}
+
+@keyframes slide-right {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(3rem);
+    }
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10rem);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateY(10rem);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+@keyframes slide-in-out {
+ 0% {
+     transform: translateY(-10rem);
+ }
+    25% {
+        transform: translateY(0rem);
+    }
+    49% {
+        transform: translateY(-1px);
+    }
+    50% {
+        transform: translateY(0px);
+    }
+    51% {
+        transform: translateY(0px);
+    }
+    75% {
+        transform: translateY(5px);
+    }
+    80% {
+        transform: translateY(3px);
+    }
+    100% {
+        transform: translateY(10rem);
+    }
+}
+
+@keyframes a-slide-out-r {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-250rem);
+    }
+}
+@keyframes a-slide-out-l {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(250rem);
+    }
+}
+
+

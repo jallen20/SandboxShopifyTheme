@@ -12,11 +12,22 @@
 
     {{ content_for_header }}
 
+      <script type="module" src="{{ "init.js" | asset_url }}" defer></script>
+      <script type="module" src="{{ 'loader.js' | asset_url }}" defer></script>
       <script type="module" src="{{ "init-gmap.js" | asset_url }}" defer>
       </script>
   </head>
 
   <body>
+  <div id="loader">
+      <div class="loader-content">
+          <div class='loader-l'> </div>
+          <div class='loader-r'> </div>
+          <h2 class="unlck-l">UN</h2>
+          {% render 'loader-carousel', id: 'loader-carousel', timer: 1, img-urls: 'cc_1,cc_2,cc_3,cc_4,cc_5,cc_6,cc_7,cc_8,cc_9,cc_10,cc_11,cc_12' %}
+          <h2 class="unlck-r">LCK</h2>
+      </div>
+  </div>
   <div class="conditional-show">
       {% sections 'header-group' %}
   </div>
