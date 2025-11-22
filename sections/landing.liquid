@@ -92,7 +92,9 @@
     <script type="module">
         const video = document.querySelector("#bg-video");
         video.addEventListener("loadedmetadata", e => {
-            video.play();
+            video.play().catch(err => {
+                console.error('Video failed to play:', err);
+            });
         });
         window.addEventListener('load', (e) => {
             if (document.querySelector(".landing-section")) {
