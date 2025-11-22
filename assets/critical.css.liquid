@@ -192,9 +192,10 @@ body {
     animation-fill-mode: forwards;
 }
 #loader-carousel {
-    display: none;
+    display: block;
     animation: display-in 10ms ease-in .5s;
-    animation-fill-mode: forwards;
+    position: relative;
+    width: 2rem;
 }
 .carousel-out {
     animation: slide-down .5s ease-in;
@@ -220,7 +221,6 @@ body {
     justify-content: center;
     margin: 0;
     padding: 0;
-    transform: translateX(-2rem);
 }
 
 .shrink-out {
