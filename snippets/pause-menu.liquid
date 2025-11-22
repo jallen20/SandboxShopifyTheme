@@ -12,41 +12,51 @@
 
     <script type="module">
         import { initNav } from "{{ 'p-nav.js' | asset_url }}";
-
+        const video = document.getElementById("{{ video-id }}")
         window.addEventListener("mapChipClicked", (e) => {
             const { url } = e.detail;
             window.location.href = url;
         });
         window.addEventListener('load', () => {
             initNav();
+            video.play();
         });
 
         const onNavigate = (selectedNav) => {
             if (!selectedNav) return;
-            console.log("selectedNav", selectedNav);
             const pauseMenuContainer = document.getElementById("pause-menu-content-container");
-            const video = document.getElementById("{{ video-id }}")
             const videoOverlay = document.getElementById("{{ video-overlay-id }}");
-            if (selectedNav.innerText.toLowerCase() === 'home') {
-                pauseMenuContainer.style.display = 'none';
-                videoOverlay.style.boxShadow = 'none';
-                videoOverlay.style.filter = 'none';
-                videoOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
-                video.play();
-                return;
+            const videoLogo = document.querySelector(".video-logo");
+
+            switch (selectedNav.innerText.toLowerCase()) {
+                case 'home':
+                    pauseMenuContainer.style.display = 'none';
+                    videoOverlay.style.boxShadow = 'none';
+                    videoOverlay.style.filter = 'none';
+                    videoOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
+                    videoLogo.style.display = 'block';
+                    video.play();
+                    return;
+
+                case 'shop':
+                    window.LOADER_DURATION = 1000;
+                    window.location.href = "/products";
+                    return;
+
+                case 'map':
+                    videoOverlay.style.boxShadow = 'inset 0 0 200px rgba(0, 0, 0, 1)';
+                    videoOverlay.style.background = 'rgba(0, 0, 0, 0.1)';
+                    videoOverlay.style.filter = 'sepia(1) contrast(1.1) brightness(0.9)';
+                    pauseMenuContainer.style.display = 'flex';
+                    videoLogo.style.display = 'none';
+                    video.pause();
+                    const selectedElement = document.getElementById(selectedNav.innerText.toLowerCase().replace(/nav_/g, ''));
+                    pauseMenuContainer.appendChild(selectedElement);
+                    return;
+
+                default:
+                    return;
             }
-            else if (selectedNav.innerText.toLowerCase() === 'shop') {
-                window.location.href = "/products";
-                return;
-            }
-            videoOverlay.style.boxShadow = 'inset 0 0 200px rgba(0, 0, 0, 1)';
-            videoOverlay.style.background = 'rgba(0, 0, 0, 0.1)';
-            videoOverlay.style.filter = 'sepia(1) contrast(1.1) brightness(0.9)';
-            pauseMenuContainer.style.display = 'flex';
-            video.pause();
-            const selectedElement = document.getElementById(selectedNav.innerText.toLowerCase().replace(/nav_/g, ''));
-            console.log("selectedElement", selectedElement);
-            pauseMenuContainer.appendChild(selectedElement);
         }
         const nav = document.getElementById("pause-menu-nav");
         nav.addEventListener("click", e => {
@@ -96,6 +106,7 @@
             align-items: center;
             background-color: rgba(0, 0, 0, 0.1);
             margin-top: 1rem;
+            padding: 0 1.5rem;
         }
         #pause-menu-content {
             width: 100%;

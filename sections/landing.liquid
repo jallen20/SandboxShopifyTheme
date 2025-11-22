@@ -91,7 +91,6 @@
 
     <script type="module">
         window.addEventListener('load', (e) => {
-            console.log("Load")
             if (document.querySelector(".landing-section")) {
                 [...document.getElementsByClassName('conditional-show')].forEach((element) => {
                     element.style.display = 'none';
@@ -153,7 +152,7 @@
             align-items: center;
             justify-content: space-between;
             height: 100%;
-            padding: 0 0 2rem 0;
+            padding: 0 0 20rem 0;
         }
 
         .shopify-section {
@@ -168,6 +167,7 @@
                 width: 4rem;
             }
             .landing-section-content {
+                padding: 0 0 8rem 0;
             }
         }
     </style>

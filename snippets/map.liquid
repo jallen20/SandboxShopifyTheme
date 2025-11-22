@@ -1,35 +1,24 @@
 <div>
     <div id="{{ id }}" class="map-clip-path-container">
-        <gmp-map
-                class="{{ class-name }}"
-                heading-interaction-disabled
-                center="{{ latitude }},{{ longitude }}"
-                zoom="{{ zoom }}"
-                map-id="{{ map_id }}"
-                style="width: 100%;"
-                color-scheme="dark"
-        ></gmp-map>
+
     </div>
     <script
             src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&v=weekly&libraries=maps,marker"
     ></script>
 
     <script type="module" defer>
-        import { waitForMap } from '{{ "init-gmap.js" | asset_url }}'
+       import { initMap } from "{{ "init-gmap.js" | asset_url }}";
 
-        waitForMap((m,) => {
-            m.setOptions({
-                disableDefaultUI: true,
-                zoomControl: false,
-                mapTypeControl: false,
-                streetViewControl: false,
-                fullscreenControl: false,
-                rotateControl: false,
-                scaleControl: false,
-                tilt: 0,
-                heading: 0
-            });
+    document.addEventListener("DOMContentLoaded", () => {
+        initMap({
+            id: "{{ id }}",
+            mapId: "{{ map_id }}",
+            zoom: 11,
+            lat: +"{{ latitude }}",
+            lng: +"{{ longitude }}",
         });
+    })
+
     </script>
 
     {% paginate collections['all'].products by 50 %}
@@ -60,10 +49,11 @@
         }
         .map-clip-path-container {
             width: 100%;
-            height: 20rem;
+            height: 40rem;
             overflow: hidden;
             margin: auto;
             padding: 1rem;
+            position: relative;
         }
         gmp-map {
             overflow: hidden;
@@ -72,7 +62,7 @@
         }
         @media screen and (min-width: 800px) {
             .map-clip-path-container {
-                height: 20rem;
+                height: 30rem;
             }
         }
     </style>
